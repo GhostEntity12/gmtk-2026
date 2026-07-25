@@ -4,7 +4,7 @@ public class InteractionPointPickup : InteractionPoint
 {
 	[SerializeField]
 	private Holdable item;
-
+	private GameObject location;
 	public override void Interact(PlayerFirstPerson p)
 	{
 		if (p.PickUp(item))
