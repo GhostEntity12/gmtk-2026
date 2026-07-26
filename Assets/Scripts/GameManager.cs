@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    [field: SerializeField] public EnemyDetectionUI EnemyUiTemplate { get; private set; }
     [SerializeField] private PlayerTopDown player;
 
 	public GameTimer GameTimer { get; private set; }
