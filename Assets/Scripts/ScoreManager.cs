@@ -24,8 +24,8 @@ public class ScoreManager : Singleton<ScoreManager>
 		{
 			int i when i < 5 => 1,
 			int i when i < 9 => 2,
-			int i when i < 12 => 3,
-			int i when i < 14 => 4,
+			int i when i < 13 => 3,
+			int i when i < 18 => 4,
 			_ => 5
 		};
 

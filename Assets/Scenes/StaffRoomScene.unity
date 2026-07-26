@@ -2920,6 +2920,50 @@ MonoBehaviour:
   prompt: 
   spriteRenderer: {fileID: 1423155}
   newSprite: {fileID: 21300000, guid: c9b10d1170392f7448cede4fbdb77882, type: 3}
+--- !u!1 &1459237295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1459237297}
+  - component: {fileID: 1459237296}
+  m_Layer: 0
+  m_Name: Scorer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1459237296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459237295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8369a617107f449832659f1b35e8ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1459237297
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459237295}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.4177248, y: 5.787362, z: 0.31868047}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1471371179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3945,7 +3989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f36e4f5a6d8cd14b92eef01811f7417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Interactable>k__BackingField: 0
+  <Interactable>k__BackingField: 1
   newInteractionsOnComplete:
   - {fileID: 1792863315}
   prompt: Prepare lesson
@@ -5595,3 +5639,4 @@ SceneRoots:
   - {fileID: 1117019858}
   - {fileID: 978778746}
   - {fileID: 1324228153}
+  - {fileID: 1459237297}
