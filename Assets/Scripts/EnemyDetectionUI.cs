@@ -1,16 +1,19 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyDetectionUI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+	Enemy e;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	[SerializeField] Image fill;
+
+	// Update is called once per frame
+	void Update()
+	{
+		transform.position = e.transform.position;
+	}
+
+	public void SetFill(float fillAmount) => fill.fillAmount = fillAmount;
+	
+	public void SetEnemy(Enemy enemy) => e = enemy;
 }

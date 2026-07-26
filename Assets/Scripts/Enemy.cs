@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour
 	private void Awake()
 	{
 		agent = GetComponent<NavMeshAgent>();
+		Instantiate(GameManager.Instance.EnemyUiTemplate).SetEnemy(this);
 	}
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
