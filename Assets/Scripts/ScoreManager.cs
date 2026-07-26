@@ -4,10 +4,18 @@ using UnityEngine;
 public class ScoreManager : Singleton<ScoreManager>
 {
 	private int choresComplete = 0;
-	private float timeRemaining = 0;
+	private float timeRemaining = float.NegativeInfinity;
 
 	public string TimeRemainingFormatted => $"{Mathf.Floor(timeRemaining / 60):00}:{Mathf.Floor(timeRemaining % 60):00}";
+	public float TimeRemaining => timeRemaining;
 	public int ChoresComplete => choresComplete;
+
+	protected override void Awake()
+	{
+		base.Awake();
+		DontDestroyOnLoad(this);
+	}
+
 	public void SetTimerScore(float timeRemaining)
 	{
 		this.timeRemaining = timeRemaining;
