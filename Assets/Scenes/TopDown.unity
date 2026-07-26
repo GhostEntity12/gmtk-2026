@@ -285,11 +285,11 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710576, y: -0, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: 0, y: 12.7, z: 2.95}
+  m_LocalPosition: {x: 0, y: 12.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1355883703}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -1046,7 +1046,8 @@ Transform:
   m_LocalPosition: {x: 6.99, y: 0.5, z: 3.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 330585546}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1355883704
@@ -1061,7 +1062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b14363128bc037146952f51ca4373e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1
+  movementSpeed: 5
   rotSpeed: 900
 --- !u!143 &1355883705
 CharacterController:
@@ -1394,9 +1395,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc09b1f6647471469c1f617cd79695b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertnessIncreaseRate: 0
+  alertnessIncreaseRate: 0.1
   alertnessDecreaseRate: 0
-  alertDecayDuration: 0
+  alertDecayDuration: 2
   waypoints:
   - {fileID: 436050866}
   - {fileID: 346408394}
@@ -2013,13 +2014,12 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 330585546}
+  - {fileID: 1355883703}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1600620720}
   - {fileID: 1814611438}
   - {fileID: 72282623}
-  - {fileID: 1355883703}
   - {fileID: 1926701369}
   - {fileID: 1531608037}
   - {fileID: 727543812}

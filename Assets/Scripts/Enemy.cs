@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
 		{
 			// In cone, successful raycast and has component
 			if (vc.InCone(transform, GameManager.Instance.Player.transform.position) &&
-				Physics.Raycast(transform.position, GameManager.Instance.Player.transform.position - transform.position, out RaycastHit hit, vc.length)
+				Physics.Raycast(transform.position, GameManager.Instance.Player.transform.position - transform.position, out RaycastHit hit, vc.length, ~1 << 8)
 				&& hit.transform.TryGetComponent(out PlayerTopDown p))
 			{
 				// Player in line of sight
@@ -129,6 +129,7 @@ public class Enemy : MonoBehaviour
 				agent.SetDestination(lastKnownPlayerLocation);
 				// Just to ensure the position isn't off the navmesh
 				lastKnownPlayerLocation = agent.destination;
+				isChasing = true;
 			}
 		}
 		else
