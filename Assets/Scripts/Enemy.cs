@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
 	[SerializeField] private float alertnessIncreaseRate;
 	[SerializeField] private float alertnessDecreaseRate;
 	[SerializeField] private float alertDecayDuration;
+	private EnemyDetectionUI ui;
 
 	[Header("Movement")]
 	private NavMeshAgent agent;
@@ -32,7 +33,9 @@ public class Enemy : MonoBehaviour
 	private void Awake()
 	{
 		agent = GetComponent<NavMeshAgent>();
-		Instantiate(GameManager.Instance.EnemyUiTemplate).SetEnemy(this);
+		ui = Instantiate(GameManager.Instance.EnemyUiTemplate);
+		ui.SetEnemy(this);
+		ui.SetFill(0);
 	}
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -53,15 +56,27 @@ public class Enemy : MonoBehaviour
 	{
 		foreach (ViewCone vc in viewcones)
 		{
-			// In cone, successful raycast and has component
+			In cone, successful raycast and has component
 			if (vc.InCone(transform, GameManager.Instance.Player.transform.position) &&
-				Physics.Raycast(transform.position, GameManager.Instance.Player.transform.position - transform.position, out RaycastHit hit, vc.length, ~1 << 8)
-				&& hit.transform.TryGetComponent(out PlayerTopDown p))
+				Physics.Raycast(transform.position, GameManager.Instance.Player.transform.position - transform.position, out RaycastHit hit, vc.length, ~(1 << 6))
+				&& hit.transform.TryGetComponent(out PlayerTopDown _))
 			{
 				// Player in line of sight
-				Debug.Log("PLAYER IN VIEW!!");
 				return true;
+
 			}
+			//if (vc.InCone(transform, GameManager.Instance.Player.transform.position))
+			//{
+			//	if (Physics.Raycast(transform.position, GameManager.Instance.Player.transform.position - transform.position, out RaycastHit hit, vc.length, ~(1 << 6)))
+			//	{
+			//		if (hit.transform.TryGetComponent(out PlayerTopDown _))
+			//		{
+			//			// Player in line of sight
+
+			//			return true;
+			//		}
+			//	}
+			//}
 		}
 		return false;
 	}
@@ -77,6 +92,7 @@ public class Enemy : MonoBehaviour
 			lastKnownPlayerLocation = GameManager.Instance.Player.transform.position;
 			// Increase alertness
 			alertness += Time.deltaTime * alertnessIncreaseRate;
+			ui.SetFill(alertness);
 			if (alertness >= 1)
 			{
 				GameManager.Instance.EndGame(false);
@@ -94,6 +110,7 @@ public class Enemy : MonoBehaviour
 			{
 				// Decay time has reached zero, start decreasing the alertness
 				alertness -= Time.deltaTime * alertnessDecreaseRate;
+				ui.SetFill(alertness);
 			}
 			else
 			{
