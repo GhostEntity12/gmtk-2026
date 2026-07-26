@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class InteractionPointPickup : InteractionPoint
 {
-	[SerializeField]
-	private Holdable item;
-	private GameObject location;
+	[SerializeField] private Holdable item;
+	[SerializeField] private SpriteRenderer inWorldRenderer;
+
 	public override void Interact(PlayerFirstPerson p)
 	{
 		if (p.PickUp(item))
 		{
-			// Hide item
+			inWorldRenderer.enabled = false;
 			base.Interact(p);
 		}
 	}

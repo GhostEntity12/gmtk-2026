@@ -7,17 +7,12 @@ public class PlayerMovementFirstPerson : MonoBehaviour
 	private Vector3 movementDelta;
 	private Vector3 lookDelta;
 
-	[SerializeField]
-	private Camera playerCamera;
+	[SerializeField] private Camera playerCamera;
 
-	[SerializeField]
-	private float movementSpeed = 2.5f;
-	[SerializeField]
-	private Vector2 lookSpeed = new(15f, 5f);
-	[SerializeField]
-	private Vector2 lookSpeedLimit = new(30f, 30f);
-	[SerializeField]
-	private Vector2 lookXConstraint = new(-70f, 70f);
+	[SerializeField] private float movementSpeed = 2.5f;
+	[SerializeField] private Vector2 lookSpeed = new(15f, 5f);
+	[SerializeField] private Vector2 lookSpeedLimit = new(30f, 30f);
+	[SerializeField] private Vector2 lookXConstraint = new(-70f, 70f);
 
 	private void Awake()
 	{

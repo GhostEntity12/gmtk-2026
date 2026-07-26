@@ -1,18 +1,31 @@
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-	public enum Status { Wandering, Chasing }
-
 	[SerializeField] private ViewCone v;
-	[SerializeField] private Transform detectTf;
+
+	[Header("Alertness")]
 	private float alertness;
-	[SerializeField] private float alertnessMax;
 	private float alertDecay;
+	[SerializeField] private float alertnessIncreaseRate;
+	[SerializeField] private float alertnessDecreaseRate;
 	[SerializeField] private float alertDecayDuration;
-	[SerializeField] private Status status;
+
+	[Header("Movement")]
+	private NavMeshAgent agent;
+	[SerializeField] private Transform[] waypoints;
+	private int waypointIndex;
+	private Vector3 lastKnownPlayerLocation;
+
+
+	[Header("Behaviour")]
+	[SerializeField] private float alertnessFollowPercentage;
+	private void Awake()
+	{
+		agent = GetComponent<NavMeshAgent>();
+	}
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
@@ -23,7 +36,9 @@ public class Enemy : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		ProcessAlertness(v.InCone(transform, Vector3.zero));
+		ProcessAlertness(v.InCone(transform, GameManager.Instance.Player.transform.position));
+
+		
 	}
 
 	/// <summary>
@@ -48,7 +63,7 @@ public class Enemy : MonoBehaviour
 			else
 			{
 				// Decay time has reached zero, start decreasing the alertness
-				alertness -= Time.deltaTime;
+				alertness -= Time.deltaTime * alertnessDecreaseRate;
 				if (alertness <= 0)
 				{
 					return true;
@@ -62,13 +77,19 @@ public class Enemy : MonoBehaviour
 			alertDecay = alertDecayDuration;
 
 			// Increase alertness
-			alertness += Time.deltaTime;
-			if (alertness >= alertnessMax)
+			alertness += Time.deltaTime * alertnessIncreaseRate;
+			if (alertness >= 1)
 			{
 				GameManager.Instance.EndGame(false);
 			}
 		}
 		return false;
+	}
+
+	void ProcessMovement()
+	{
+		// Recently saw player
+		if (alertDecay > 0 && alertness > )
 	}
 
 	public bool PlayerInViewCone => v.InCone(transform, new PlayerTopDown().transform.position);

@@ -19,10 +19,8 @@ public class ViewCone
 
 #if UNITY_EDITOR
 	[Header("Debug")]
-	[SerializeField]
-	private Color debugIdleColor;
-	[SerializeField]
-	private Color debugDetectedColor;
+	[SerializeField] private Color debugIdleColor;
+	[SerializeField] private Color debugDetectedColor;
 #endif
 
 	/// <summary>

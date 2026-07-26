@@ -4,12 +4,9 @@ using UnityEngine.UI;
 
 public class GameTimerRenderer : MonoBehaviour
 {
-	[SerializeField]
-	Image clockBackground;
-	[SerializeField]
-	Image clockHand;
-	[SerializeField]
-	Image clockFill;
+	[SerializeField] Image clockBackground;
+	[SerializeField] Image clockHand;
+	[SerializeField] Image clockFill;
 
 	public void SetFillAmount(float fill)
 	{
