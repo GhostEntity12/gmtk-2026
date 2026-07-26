@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 8b79a0e01ebaf4f48bf2413f736c895a, type: 2}
+    - target: {fileID: -1526509560930016547, guid: 7e25b9d4c491ad54793727b53383863c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: de4d377ca55578443b58dd06c9b273e8, type: 2}
     - target: {fileID: 919132149155446097, guid: 7e25b9d4c491ad54793727b53383863c, type: 3}
       propertyPath: m_Name
       value: Printer
