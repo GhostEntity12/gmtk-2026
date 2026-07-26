@@ -8,6 +8,7 @@ public class GameTimer : MonoBehaviour
     [SerializeField] private GameTimerRenderer gtr;
 
     private bool timerActive = false;
+	public float TimeRemaining => remainingGameTime;
 
     // Update is called once per frame
     void Update()
@@ -18,6 +19,7 @@ public class GameTimer : MonoBehaviour
 
 		// End game
 		SetTimerStatus(false);
+		GameManager.Instance.EndGame(GameManager.GameEndReason.Time);
 	}
 
 	public void SetTimerStatus(bool active) => timerActive = active;
