@@ -1,27 +1,24 @@
+using TMPro;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    [field: SerializeField] public EnemyDetectionUI EnemyUiTemplate { get; private set; }
+	[field: SerializeField] public EnemyDetectionUI EnemyUiTemplate { get; private set; }
+    [SerializeField] private GameTimer gameTimer;
     [SerializeField] private PlayerTopDown player;
-
-	public GameTimer GameTimer { get; private set; }
+    [SerializeField] private EndScreen endScreen;
     public PlayerTopDown Player => player;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
     {
-        
+        // Import timer status
+        gameTimer.SetTimerStatus(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void EndGame(EndScreen.GameEndReason reason)
     {
-        
-    }
-
-    public void EndGame(bool playerWonGame)
-    {
-
+        ScoreManager.Instance.SetTimerScore(gameTimer.TimeRemaining);
+        endScreen.SetEndScreen(reason);   
     }
 }
