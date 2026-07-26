@@ -19,7 +19,7 @@ public class GameTimer : MonoBehaviour
 
 		// End game
 		SetTimerStatus(false);
-		GameManager.Instance.EndGame(GameManager.GameEndReason.Time);
+		GameManager.Instance.EndGame(EndScreen.GameEndReason.Time);
 	}
 
 	public void SetTimerStatus(bool active) => timerActive = active;
