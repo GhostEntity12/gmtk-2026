@@ -3,15 +3,22 @@ using UnityEngine;
 
 public abstract class InteractionPoint : MonoBehaviour
 {
-	[field: SerializeField]
-	public bool Interactable { get; private set; } = false;
+	[field: SerializeField] public bool Interactable { get; private set; } = false;
 
-	[SerializeField]
-	private List<InteractionPoint> newInteractionsOnComplete;
+	[SerializeField] private List<InteractionPoint> newInteractionsOnComplete;
 
-	[SerializeField]
-	string prompt;
+	[SerializeField] string prompt;
 
+	private void Awake()
+	{
+		gameObject.layer = 8;
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="p"></param>
+	/// <returns>True on a successful interaction</returns>
 	public virtual void Interact(PlayerFirstPerson p)
 	{
 		if (!Interactable) return;
@@ -20,13 +27,13 @@ public abstract class InteractionPoint : MonoBehaviour
 		{
 			interaction.Enable();
 		}
-
+		Debug.Log($"Interacted with {gameObject.name}");
 		Disable();
 	}
 
-	public void Enable() => Interactable = true;
+	public virtual void Enable() => Interactable = true;
 
-	public void Disable()
+	public virtual void Disable()
 	{
 		Interactable = false;
 		SetPromptVisiblity(false);

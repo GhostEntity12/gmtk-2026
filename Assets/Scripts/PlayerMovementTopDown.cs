@@ -2,10 +2,8 @@ using UnityEngine;
 
 public class PlayerMovementTopDown : MonoBehaviour
 {
-    [SerializeField]
-    private float movementSpeed = 1;
-	[SerializeField]
-	private float rotSpeed = 90;
+    [SerializeField] private float movementSpeed = 1;
+	[SerializeField] private float rotSpeed = 90;
     private CharacterController controller;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     

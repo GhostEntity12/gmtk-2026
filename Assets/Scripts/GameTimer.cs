@@ -2,13 +2,10 @@ using UnityEngine;
 
 public class GameTimer : MonoBehaviour
 {
-    [SerializeField]
-    private float gameDuration;
-    [SerializeField]
-    private float remainingGameTime;
+    [SerializeField] private float gameDuration;
+    [SerializeField] private float remainingGameTime;
 
-    [SerializeField]
-    private GameTimerRenderer gtr;
+    [SerializeField] private GameTimerRenderer gtr;
 
     private bool timerActive = false;
 

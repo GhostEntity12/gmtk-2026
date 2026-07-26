@@ -3,11 +3,40 @@ using UnityEngine.UI;
 
 public class PlayerFirstPerson : MonoBehaviour
 {
-	public Holdable hand { get; private set; }
-	[SerializeField]
-	private SpriteRenderer handRenderer;
-	[SerializeField]
-	private SpriteRenderer heldItemRenderer;
+	public Holdable Hand { get; private set; }
+	[SerializeField] private Image handRenderer;
+	[SerializeField] private Image heldItemRenderer;
+
+	[SerializeField] private float interactRange = 1f;
+	[SerializeField] private float interactRadius = 0.4f;
+
+
+	[SerializeField] Color debugNeutral;
+	[SerializeField] Color debugPressed;
+	[SerializeField] Color debugInRange;
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			TryInteract();
+		}
+	}
+
+	private void TryInteract()
+	{
+		// Get the interactionPoint
+		Collider[] interactable = new Collider[1];
+		Physics.OverlapSphereNonAlloc(Camera.main.transform.position + Camera.main.transform.forward * interactRange, interactRadius, interactable, 1 << 8);
+		
+		Collider InteractObject = interactable[0];
+
+		// Try to interact
+		if (InteractObject != null && InteractObject.TryGetComponent(out InteractionPoint p) && p.Interactable)
+		{
+			p.Interact(this);
+		}
+	}
 
 	/// <summary>
 	/// Pivk up an item
@@ -16,7 +45,7 @@ public class PlayerFirstPerson : MonoBehaviour
 	/// <returns>True if the holdable was picked up</returns>
 	public bool PickUp(Holdable h)
 	{
-		if (hand != null)
+		if (Hand != null)
 		{
 			// Hand already full
 			Debug.LogError("Hand already holding item");
@@ -24,7 +53,7 @@ public class PlayerFirstPerson : MonoBehaviour
 		}
 
 		// Disable the interactable so it can't be interacted with again
-		hand = h;
+		Hand = h;
 		heldItemRenderer.sprite = h.sprite;
 		heldItemRenderer.enabled = true;
 		handRenderer.enabled = false;
@@ -38,7 +67,7 @@ public class PlayerFirstPerson : MonoBehaviour
 	/// <returns>True if the holdable was placed down</returns>
 	public bool PutDown(out Holdable h)
 	{
-		if (hand == null)
+		if (Hand == null)
 		{
 			// Hand is empty
 			Debug.LogError("Hand not holding item");
@@ -46,12 +75,18 @@ public class PlayerFirstPerson : MonoBehaviour
 			return false;
 		}
 
-		h = hand;
-		hand = null;
+		h = Hand;
+		Hand = null;
 		heldItemRenderer.sprite = null;
 		heldItemRenderer.enabled = false;
 		handRenderer.enabled = true;
 		return true;
 
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = Physics.CheckSphere(Camera.main.transform.position + Camera.main.transform.forward * interactRange, interactRadius, 1 << 8) ? debugInRange : Input.GetKey(KeyCode.Space) ? debugPressed : debugNeutral;
+		Gizmos.DrawSphere(Camera.main.transform.position + Camera.main.transform.forward * interactRange, interactRadius);
 	}
 }
