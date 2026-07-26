@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
 	{
 		foreach (ViewCone vc in viewcones)
 		{
-			In cone, successful raycast and has component
+			// In cone, successful raycast and has component
 			if (vc.InCone(transform, GameManager.Instance.Player.transform.position) &&
 				Physics.Raycast(transform.position, GameManager.Instance.Player.transform.position - transform.position, out RaycastHit hit, vc.length, ~(1 << 6))
 				&& hit.transform.TryGetComponent(out PlayerTopDown _))
