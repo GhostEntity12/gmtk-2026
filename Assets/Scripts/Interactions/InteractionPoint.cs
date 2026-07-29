@@ -1,33 +1,34 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class InteractionPoint : MonoBehaviour
 {
 	[field: SerializeField] public bool Interactable { get; private set; } = false;
 
-	[SerializeField] private List<InteractionPoint> newInteractionsOnComplete;
+	[SerializeField] private InteractionEvent[] eventsOnComplete;
 
 	[SerializeField] string prompt;
 
 	private void Awake()
 	{
+		// Set the layer so the raycasts work
 		gameObject.layer = 8;
 	}
 
 	/// <summary>
-	/// 
+	/// Try to interact with this point
 	/// </summary>
-	/// <param name="p"></param>
-	/// <returns>True on a successful interaction</returns>
+	/// <param name="p">The player interacting</param>
 	public virtual void Interact(PlayerFirstPerson p)
 	{
 		if (!Interactable) return;
 
-		foreach (InteractionPoint interaction in newInteractionsOnComplete)
+		foreach (InteractionEvent e in eventsOnComplete)
 		{
-			interaction.Enable();
+			e.OnTrigger();
 		}
+
 		Disable();
+
 		ScoreManager.Instance.AddCompletedChores(1);
 	}
 
@@ -39,5 +40,8 @@ public abstract class InteractionPoint : MonoBehaviour
 		SetPromptVisiblity(false);
 	}
 
-	public abstract string SetPromptVisiblity(bool visible);
+	public virtual void SetPromptVisiblity(bool visible)
+	{
+
+	}
 }

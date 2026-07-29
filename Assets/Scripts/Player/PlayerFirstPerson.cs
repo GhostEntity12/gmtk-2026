@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class PlayerFirstPerson : MonoBehaviour
 {
 	public Holdable Hand { get; private set; } = new Holdable();
+
 	[SerializeField] private Image handRenderer;
 	[SerializeField] private Image heldItemRenderer;
 
@@ -34,9 +35,9 @@ public class PlayerFirstPerson : MonoBehaviour
 		Collider[] interactable = new Collider[4];
 		Physics.OverlapSphereNonAlloc(Camera.main.transform.position + Camera.main.transform.forward * interactRange, interactRadius, interactable, 1 << 8);
 
+		// Try to interact with each object
 		foreach (Collider InteractObject in interactable)
 		{
-			// Try to interact
 			if (InteractObject != null && InteractObject.TryGetComponent(out InteractionPoint p) && p.Interactable)
 			{
 				p.Interact(this);
@@ -58,11 +59,14 @@ public class PlayerFirstPerson : MonoBehaviour
 			return false;
 		}
 
-		// Disable the interactable so it can't be interacted with again
+		// Set hand
 		Hand = h;
+
+		// Update UI
 		heldItemRenderer.sprite = h.sprite;
 		heldItemRenderer.enabled = true;
 		handRenderer.enabled = false;
+		
 		return true;
 	}
 
@@ -73,21 +77,24 @@ public class PlayerFirstPerson : MonoBehaviour
 	/// <returns>True if the holdable was placed down</returns>
 	public bool PutDown(out Holdable h)
 	{
-		if (Hand == null)
+		if (Hand.id == string.Empty)
 		{
 			// Hand is empty
 			Debug.LogError("Hand not holding item");
-			h = null;
+			h = new();
 			return false;
 		}
 
+		// Make h a copy of hand, then empty hand
 		h = new(Hand);
 		Hand.Reset();
+
+		// Update UI
 		heldItemRenderer.sprite = null;
 		heldItemRenderer.enabled = false;
 		handRenderer.enabled = true;
+		
 		return true;
-
 	}
 
 	private void OnDrawGizmos()

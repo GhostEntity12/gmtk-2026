@@ -9,13 +9,8 @@ public class InteractionPointPickup : InteractionPoint
 	{
 		if (p.PickUp(item))
 		{
-			inWorldRenderer.enabled = false;
+			inWorldRenderer.sprite = null;
 			base.Interact(p);
 		}
-	}
-
-	public override string SetPromptVisiblity(bool visible)
-	{
-		return null;
 	}
 }
