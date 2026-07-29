@@ -2,28 +2,42 @@ using UnityEngine;
 
 public class GameTimer : MonoBehaviour
 {
-    [SerializeField] private float gameDuration;
-    [SerializeField] private float remainingGameTime;
+	[SerializeField] private float gameDuration;
+	[SerializeField] private float remainingGameTime;
 
-    [SerializeField] private GameTimerRenderer gtr;
+	[SerializeField] private GameTimerRenderer gtr;
 
-    private bool timerActive = false;
+	private bool timerActive = false;
 	public float TimeRemaining => remainingGameTime;
 
-    // Update is called once per frame
-    void Update()
+	private void Start()
+	{
+		ScoreManager s = (ScoreManager)FindAnyObjectByType(typeof(ScoreManager));
+		if (s != null && s.TimeRemaining != float.NegativeInfinity)
+		{
+			remainingGameTime = s.TimeRemaining;
+		}
+		else
+		{
+			ResetTimer();
+		}
+		SetTimerStatus(true);
+	}
+
+	// Update is called once per frame
+	void Update()
 	{
 		if (!timerActive) return;
 
-		if (UpdateTimer()) return;
+		if (!UpdateTimer()) return;
 
 		// End game
 		SetTimerStatus(false);
-		GameManager.Instance.EndGame(GameManager.GameEndReason.Time);
+		GameManager.Instance.EndGame(EndScreen.GameEndReason.Time);
 	}
 
 	public void SetTimerStatus(bool active) => timerActive = active;
-	
+
 	/// <summary>
 	/// Resets the timer
 	/// </summary>
@@ -41,11 +55,11 @@ public class GameTimer : MonoBehaviour
 	/// <summary>
 	/// Updates the timer
 	/// </summary>
-	/// <returns>False if the timer has run out</returns>
+	/// <returns>True if the timer has run out</returns>
 	bool UpdateTimer()
 	{
 		remainingGameTime -= Time.deltaTime;
 		gtr.SetFillAmount(remainingGameTime);
-        return remainingGameTime > 0;
+		return remainingGameTime < 0;
 	}
 }

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class PlayerFirstPerson : MonoBehaviour
 {
-	public Holdable Hand { get; private set; }
+	public Holdable Hand { get; private set; } = new Holdable();
 	[SerializeField] private Image handRenderer;
 	[SerializeField] private Image heldItemRenderer;
 
@@ -14,6 +14,11 @@ public class PlayerFirstPerson : MonoBehaviour
 	[SerializeField] Color debugNeutral;
 	[SerializeField] Color debugPressed;
 	[SerializeField] Color debugInRange;
+
+	private void Start()
+	{
+		Hand.Reset();
+	}
 
 	private void Update()
 	{
@@ -26,15 +31,16 @@ public class PlayerFirstPerson : MonoBehaviour
 	private void TryInteract()
 	{
 		// Get the interactionPoint
-		Collider[] interactable = new Collider[1];
+		Collider[] interactable = new Collider[4];
 		Physics.OverlapSphereNonAlloc(Camera.main.transform.position + Camera.main.transform.forward * interactRange, interactRadius, interactable, 1 << 8);
-		
-		Collider InteractObject = interactable[0];
 
-		// Try to interact
-		if (InteractObject != null && InteractObject.TryGetComponent(out InteractionPoint p) && p.Interactable)
+		foreach (Collider InteractObject in interactable)
 		{
-			p.Interact(this);
+			// Try to interact
+			if (InteractObject != null && InteractObject.TryGetComponent(out InteractionPoint p) && p.Interactable)
+			{
+				p.Interact(this);
+			}
 		}
 	}
 
@@ -45,7 +51,7 @@ public class PlayerFirstPerson : MonoBehaviour
 	/// <returns>True if the holdable was picked up</returns>
 	public bool PickUp(Holdable h)
 	{
-		if (Hand != null)
+		if (Hand.id != string.Empty)
 		{
 			// Hand already full
 			Debug.LogError("Hand already holding item");
@@ -75,8 +81,8 @@ public class PlayerFirstPerson : MonoBehaviour
 			return false;
 		}
 
-		h = Hand;
-		Hand = null;
+		h = new(Hand);
+		Hand.Reset();
 		heldItemRenderer.sprite = null;
 		heldItemRenderer.enabled = false;
 		handRenderer.enabled = true;
