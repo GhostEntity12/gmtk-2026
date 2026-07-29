@@ -95,7 +95,7 @@ public class Enemy : MonoBehaviour
 			ui.SetFill(alertness);
 			if (alertness >= 1)
 			{
-				GameManager.Instance.EndGame(GameManager.GameEndReason.Spotted);
+				GameManager.Instance.EndGame(EndScreen.GameEndReason.Spotted);
 			}
 		}
 		else

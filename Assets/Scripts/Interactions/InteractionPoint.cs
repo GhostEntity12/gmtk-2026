@@ -27,8 +27,8 @@ public abstract class InteractionPoint : MonoBehaviour
 		{
 			interaction.Enable();
 		}
-		Debug.Log($"Interacted with {gameObject.name}");
 		Disable();
+		ScoreManager.Instance.AddCompletedChores(1);
 	}
 
 	public virtual void Enable() => Interactable = true;

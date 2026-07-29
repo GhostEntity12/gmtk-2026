@@ -13,7 +13,7 @@ public class InteractionPointDelay : InteractionPoint
 	
 	public override string SetPromptVisiblity(bool visible)
 	{
-		throw new System.NotImplementedException();
+		return null;
 	}
 
 	public override void Enable()

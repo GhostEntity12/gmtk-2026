@@ -16,6 +16,6 @@ public class InteractionPointPickup : InteractionPoint
 
 	public override string SetPromptVisiblity(bool visible)
 	{
-		throw new System.NotImplementedException();
+		return null;
 	}
 }
