@@ -17833,7 +17833,7 @@ MonoBehaviour:
   <EnemyUiTemplate>k__BackingField: {fileID: 3423726928005226998, guid: 91757874fb1eb7a45a81efdd212afde9, type: 3}
   gameTimer: {fileID: 1629461230}
   player: {fileID: 1224754254}
-  endScreen: {fileID: 0}
+  endScreen: {fileID: 1195044224}
 --- !u!4 &1370263655
 Transform:
   m_ObjectHideFlags: 0
