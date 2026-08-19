@@ -59,7 +59,7 @@ public class GameTimer : MonoBehaviour
 	bool UpdateTimer()
 	{
 		remainingGameTime -= Time.deltaTime;
-		gtr.SetFillAmount(remainingGameTime);
+		gtr.SetFillAmount(1 - remainingGameTime / gameDuration);
 		return remainingGameTime < 0;
 	}
 }
